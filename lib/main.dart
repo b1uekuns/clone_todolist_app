@@ -2,14 +2,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ytb/ui/category/create_or_edit_category.dart';
-//import 'package:ytb/ui/main/main_page.dart';
+import 'package:ytb/services/hive_service.dart';
+import 'package:ytb/ui/main/main_page.dart';
 //import 'package:ytb/ui/splash/splash.dart';
 //import 'ui/onboarding/onboarding_page_view.dart';
 //import 'package:ytb/ui/welcome/welcome_page.dart';
+//import 'package:ytb/data/isar_service.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); //
   await EasyLocalization.ensureInitialized();
+
+  // Initialize Hive instead of Isar
+  await HiveService.init();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -29,6 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Todo List App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6200EE)),
@@ -38,7 +45,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
       supportedLocales: context.supportedLocales,
-      home: const CreateOrEditCategory(),
+      home: const MainPage(),
     );
   }
 }

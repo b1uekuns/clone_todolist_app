@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytb/ui/task/create_task_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -134,11 +135,27 @@ class _MainPageState extends State<MainPage> {
           borderRadius: BorderRadius.circular(32),
         ),
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _onShowCreateTask.call();
+          },
           icon: const Icon(Icons.add, size: 30, color: Colors.white),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
+  }
+
+  // tạo modal bottom sheet
+  void _onShowCreateTask() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: CreateTaskPage(),
+        );
+      },
     );
   }
 }
